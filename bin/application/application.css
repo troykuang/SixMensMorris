@@ -1,0 +1,82 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+#blueButton {
+	-fx-background-color:deepskyblue;
+	-fx-max-width: 50px;
+	-fx-max-height: 50px;
+	-fx-min-width: 50px;
+	-fx-min-height: 50px;
+	-fx-background-radius: 8em;
+	-fx-effect:innershadow(gaussian,rgba(31,44,122,0.6),13,0.2,2,2);	
+	-fx-effect:dropshadow( one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+}
+
+#redButton {
+	-fx-max-width: 50px;
+	-fx-max-height: 50px;
+	-fx-min-width: 50px;
+	-fx-min-height: 50px;
+	-fx-background-color: crimson;
+	-fx-background-radius: 8em;
+	-fx-effect: innershadow(gaussian,rgba(120,34,14,0.6),13,0.2,2,2);
+	-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+	
+	
+
+	
+}
+
+
+#blueButton:hover{
+	-fx-background-color: dodgerblue;
+	-fx-effect: dropshadow( one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+	-fx-effect: innershadow(gaussian,rgba(31,44,122,0.6),13,0.2,2,2);
+}
+
+#redButton:hover{
+	 -fx-background-color: firebrick;
+	 -fx-effect: dropshadow( one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+	 -fx-effect: innershadow(gaussian,rgba(120,34,14,0.6),13,0.2,2,2);
+}
+
+
+.button {
+    -fx-background-color: rosybrown; 
+    -fx-background-radius: 5em;
+    -fx-color: white;
+    -fx-padding: 15px 32px;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-radius:20px;
+    -fx-effect: dropshadow( one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+}
+
+.button:hover {
+    -fx-background-color: #3D2F2B;
+    -fx-cursor:hand;
+
+}
+    
+
+
+#gameBoard{
+	-fx-background-color:rgba(0,0,0,0);
+}
+
+#backboard{
+	fx-set-fill:rgb(89,67,62);
+	
+}
+#rightPanel {
+	-fx-background-color:rgb(89,67,62);
+}
+
+#topTitle {
+	-fx-background-color: rosybrown; 	
+}
+
+#title {
+	-fx-effect: dropshadow( one-pass-box, black , 2, 0.2 , -1.0 , -1.0 );
+	
+}
