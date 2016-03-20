@@ -36,6 +36,7 @@ import javafx.scene.text.Text;
 public class View extends Application {
 	private Stage leStage = new Stage();
 	private Circle circle [][];
+	private Circle buttons [][];
 	private Scene scene;
 
 
@@ -52,6 +53,7 @@ public class View extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("6 Men's Morris Game");
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 
 		} catch (Exception e) {
@@ -59,8 +61,35 @@ public class View extends Application {
 		}
 	}
 
-	
+	public void loadGame(int n){//, String colourOption){
 
+		cells = n; // #((mensMorris/3)*2)+1 IN THIS CASE 5
+		try {
+			AnchorPane total = new AnchorPane(); // going to be parent to the
+													// scene builder items and
+													// the ones we create
+													// dynamically
+			Parent root2 = FXMLLoader.load(getClass().getResource("LoadGameBoard.fxml"));
+
+			Pane gameboard = drawBoard();
+			total.setTopAnchor(gameboard, 75.0);
+			total.setLeftAnchor(gameboard, 20.0);
+
+			total.getChildren().addAll(root2, gameboard);
+			Scene scene = new Scene(total, 900, 600);
+
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
+			leStage.setScene(scene);
+			leStage.show();
+			leStage.setTitle("6 Men's Morris Game");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 	
 	
 	
@@ -73,11 +102,11 @@ public class View extends Application {
 													// dynamically
 			Parent root2 = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
 			Pane gameboard = drawBoard();
-			total.setTopAnchor(gameboard, 105.0);
+			total.setTopAnchor(gameboard, 75.0);
 			total.setLeftAnchor(gameboard, 20.0);
 
 			total.getChildren().addAll(root2, gameboard);
-			scene = new Scene(total, 900, 900);
+			scene = new Scene(total, 900, 600);
 
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
@@ -91,108 +120,11 @@ public class View extends Application {
 
 	}
 	
-	public void loadGame(int n){//, String colourOption){
-
-		cells = n; // #((mensMorris/3)*2)+1 IN THIS CASE 5
-		try {
-			AnchorPane total = new AnchorPane(); // going to be parent to the
-													// scene builder items and
-													// the ones we create
-													// dynamically
-			Parent root2 = FXMLLoader.load(getClass().getResource("LoadGameBoard.fxml"));
-
-			Pane gameboard = drawBoard();
-			total.setTopAnchor(gameboard, 105.0);
-			total.setLeftAnchor(gameboard, 20.0);
-
-			total.getChildren().addAll(root2, gameboard);
-			Scene scene = new Scene(total, 900, 900);
-
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			leStage.setScene(scene);
-			leStage.show();
-			leStage.setTitle("6 Men's Morris Game");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-
-		
-	}
 	
-
-	public void invalid(String [] x){
-			//System.out.println("VIEW CLASS");
-			Stage dialogStage = new Stage();
-			//dialogStage.initModality(Modality.WINDOW_MODAL);
-			
-			VBox p = new VBox();
-			p.setAlignment(Pos.CENTER);
-			p.setPadding(new Insets(20));
-			Text heading = new Text("Sorry friend, you've placed some things incorrectly!");
-			heading.setStyle("-fx-text-fill: red" + "-fx-font-size: 16px");
-			p.getChildren().add(heading);
-			for(String i: x ){
-			Text n = new Text(i);
-			p.getChildren().add(n);
-			}
-			Button b = new Button("Fix it, Okay?");
-			b.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				public void handle (MouseEvent mouseEvent) {
-					Stage st = (Stage) (b.getScene().getWindow());
-					st.close();
-					//((Button) mouseEvent.getSource()).getScene().close();
-					
-				}
-			});
-			p.getChildren().add(b); 		//((Node)(event.getSource())).getScene().getWindow().hide(););
-			Scene s = new Scene(p);
-			dialogStage.setScene(s);
-			dialogStage.show();
-		}
-
 	
-	//these will be for the reset button that is to be implemented at a later time
-	/*public void resetLoad(){
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("LoadGameBoard.fxml"));
-			AnchorPane total = new AnchorPane();
-			Pane gameboard = drawBoard();
-			total.getChildren().addAll(root,gameboard);
-			Scene scene = new Scene(total, 900, 900);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			leStage.setTitle("6 Men's Morris Game");
-			leStage.setScene(scene);
-			leStage.show();
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
-	public void resetGame(){
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
-			AnchorPane total = new AnchorPane();
-			Pane gameboard = drawBoard();
-			total.getChildren().addAll(root,gameboard);
-			Scene scene = new Scene(total, 900, 900);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			leStage.setTitle("6 Men's Morris Game");
-			leStage.setScene(scene);
-			leStage.show();
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
-		
-
 	public void draw(String color, int i, int j){
+		System.out.println("Here");
 		//this is going to draw on the circle that was placed on the board
 		Paint player = Color.web(color);
 		//System.out.println(player.toString());
@@ -200,11 +132,19 @@ public class View extends Application {
 		Lighting lighting = new Lighting();
 		lighting.setLight(light);
 		lighting.setSurfaceScale(2.0);
-
-
 		
-		circle[i][j].setFill(player);
-		circle[i][j].setEffect(lighting);
+
+
+		if (buttons[i][j].getFill() != player){
+			buttons[i][j].setFill(player);
+			buttons[i][j].setEffect(lighting);
+			
+		}
+		else{
+			buttons[i][j].setFill(Color.TRANSPARENT);
+			Controller.removeGamePiece(i,j);
+		}
+
 
 	}
 
@@ -212,19 +152,19 @@ public class View extends Application {
 	private Pane drawBoard(){
 		
 		Pane gameboard = new Pane();
-		gameboard.setPrefSize(660, 660);
+		gameboard.setPrefSize(500, 500);
 		
 		/*creating the board*/
-		Rectangle backboard = new Rectangle(660,660);
+		Rectangle backboard = new Rectangle(500,500);
 		backboard.setFill(Color.rgb(145,107,99));
 		gameboard.getChildren().add(backboard);
 		
 		
 		/* creating the lines of the board game */
-		double increment = (660.0 /(cells - 1));
+		double increment = (500.0 /(cells - 1));
 		int p = (cells - 1) / 2;
 		double min = 0.0;
-		double max = 660.0;
+		double max = 500.0;
 		ArrayList<Line> lines = new ArrayList<Line>();
 		
 		
@@ -329,6 +269,7 @@ public class View extends Application {
 		
 		//creating all the nodes for the game board 
 		circle = new Circle[cells][cells];
+		buttons = new Circle[cells][cells];
 		int i, j;
 		p = (cells - 1) / 2; // Reinitializing it
 		int lowerBound = 0;
@@ -345,14 +286,15 @@ public class View extends Application {
 						// nothing, don't make a button for the middle square
 					} else {
 						circle[i][j] = new Circle((i*increment),(j*increment),10.0);
+						buttons[i][j] = new Circle(i*increment,j*increment, 15.0);
 						//listener
-						circle[i][j].setOnMouseClicked(new EventHandler<MouseEvent>() {
+						buttons[i][j].setOnMouseClicked(new EventHandler<MouseEvent>() {
 							public void handle (MouseEvent mouseEvent) {
 								// Handle here.
 								int x = 0, y = 0;
 								for(int i = 0;i<cells;i++){
 									for(int j =0;j<cells;j++){
-									if(mouseEvent.getSource()==circle[i][j]){
+									if(mouseEvent.getSource()==buttons[i][j]){
 										x=i;
 										y=j;
 										}
@@ -361,8 +303,8 @@ public class View extends Application {
 								Controller.inputClick(x,y);
 							}
 						}); //end of lambda expression
-						
-						gameboard.getChildren().add(circle[i][j]);
+						buttons[i][j].setFill(Color.TRANSPARENT);
+						gameboard.getChildren().addAll(circle[i][j],buttons[i][j]);
 
 						j += p;
 					}
@@ -377,6 +319,38 @@ public class View extends Application {
 		 return gameboard;
 
 	}
+	
+	
+	public void invalid(String [] x){
+		//System.out.println("VIEW CLASS");
+		Stage dialogStage = new Stage();
+		//dialogStage.initModality(Modality.WINDOW_MODAL);
+		
+		VBox p = new VBox();
+		p.setAlignment(Pos.CENTER);
+		p.setPadding(new Insets(20));
+		Text heading = new Text("Sorry friend, you've placed some things incorrectly!");
+		heading.setStyle("-fx-text-fill: red" + "-fx-font-size: 16px");
+		p.getChildren().add(heading);
+		for(String i: x ){
+		Text n = new Text(i);
+		p.getChildren().add(n);
+		}
+		Button b = new Button("Fix it, Okay?");
+		b.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle (MouseEvent mouseEvent) {
+				Stage st = (Stage) (b.getScene().getWindow());
+				st.close();
+				//((Button) mouseEvent.getSource()).getScene().close();
+				
+			}
+		});
+		p.getChildren().add(b); 		//((Node)(event.getSource())).getScene().getWindow().hide(););
+		Scene s = new Scene(p);
+		dialogStage.setScene(s);
+		dialogStage.show();
+	}
+
 	
 	public static void main(String[] args) {
 		launch(args);

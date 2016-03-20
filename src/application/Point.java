@@ -12,7 +12,7 @@ public class Point {
 	public int x;
 	public int y;
 	public String locationFlag;
-	public String coor;
+	public final String coor;
 	/**
 	 * Creates one point on the board. For each point, it has coordinates, 
 	 * validity ( indicating its visibility on the board, in other words, 
@@ -34,7 +34,8 @@ public class Point {
 		this.color = "black";
 		this.x = x;
 		this.y = y;
-		this.coor = "("+x+","+y+")";
+	//	this.coor = "("+x+","+y+")";
+		this.coor = "" +x+","+y;
 		
 	}
 			
@@ -46,3 +47,4 @@ public class Point {
 	}
 	
 }
+

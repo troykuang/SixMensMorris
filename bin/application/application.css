@@ -80,3 +80,8 @@
 	-fx-effect: dropshadow( one-pass-box, black , 2, 0.2 , -1.0 , -1.0 );
 	
 }
+
+#background {
+	-fx-background-color: rosybrown;
+	
+}

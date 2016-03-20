@@ -163,6 +163,18 @@ public class Board {
 		
 	}
 	
+	public void showBoards(){
+		for (int i =0;i<length;i++){
+			for (int j =0;j<length;j++){
+				System.out.print(Points[i][j]);
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+		
+		
+	}
+	
 	/* THIS PART IS FOR RESET BUTTON AND PROB SHOULD BE MOVED TO CONTROLLER LATER
 	 public static void clearBoard(){
 		// keep valid points and connections but clear discCount and color

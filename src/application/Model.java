@@ -2,22 +2,17 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Random;
-/**
- * Contains the logic for the game. Uses the Point and Board classes 
- * to store game variables and states and check logic of game play actions.
- * @author Natasha DeCoste, Rebecca Tran, Chaoyi Kuang
- *
- */
+
 public class Model {		//this will hold the logic of the game
 	
 	//these are the variables for the player colour
 	private boolean p1red = true;		//default will be red
 	private boolean p1blue = false;
-	
-	private boolean p1Play = false;		//will tell us who is playing 
-	private Board currentBoard;
+	private boolean p1Play;
+	public Board currentBoard;
 	private int redDiscs = 6; 	//to decrement 
 	private int blueDiscs = 6;	//to decrement
+	private ArrayList<String> mills = new ArrayList<String>();
 	
 	
 	public void assignPlayer(String colourChoice){
@@ -32,15 +27,13 @@ public class Model {		//this will hold the logic of the game
 			p1blue= true;
 			p1red=false;
 		}
-		//System.out.println("red= " + p1red + "  blue= " + p1blue);
+		System.out.println("red= " + p1red + "  blue= " + p1blue);
 	}
 	
 	public void getfirstPlayer(){
 		Random rand = new Random();
-		int test = rand.nextInt(10);
-		//System.out.println("random = "+test);
-		if(test<5){
-			p1Play = true;		//else it stays as false
+		if(rand.nextInt(2)==0){
+			p1Play = true;
 		}
 	}
 	
@@ -59,13 +52,44 @@ public class Model {		//this will hold the logic of the game
 
 	}
 	
-	
 	//this is for the installation of the reset button 
 /*	public void reset(){
 		this.currentBoard.clearBoard();
 	}
 	*/
-	public String[] invalidPoints(){ 
+
+	
+	
+	public void placeDisc(String color,int x, int y){
+		currentBoard.Points[x][y].discCounter ++;			
+		currentBoard.Points[x][y].color = color;
+		if (color.equals("Red")){
+			redDiscs --;
+		}
+		else{
+			blueDiscs --;
+		}
+		checkH(x,y);
+		checkV(x,y);
+	}
+	
+	public String getPlayerColour(){
+		if(p1red){return "Red";}
+		else{return "Blue";}
+		
+	}
+	
+	public void changePlayerColourBlue(){ //for when they wanna place a different colour disc
+			p1red= false;		//default will be red
+			p1blue = true;
+	}
+	
+	public void changePlayerColourRed(){ //for when they wanna place a different colour disc
+			p1red= true;
+			p1blue=false;
+	}
+
+	public String[] checkInvalidPoints(){ 
 		// Check for each point on the board there's only one disc
 		ArrayList<String> errorPoints = new ArrayList<String>(); 
 		for (int i =0;i<currentBoard.length;i++){
@@ -83,78 +107,132 @@ public class Model {		//this will hold the logic of the game
 			errors[i] = "Error " + errorPoints.get(i);
 		}
 		
-		return errors;
-	}
-
-
-	
-	private void showBoards(){
-		for (int i = 0;i<currentBoard.length;i++){
-			for (int j = 0;j<currentBoard.length;j++){
-				System.out.print(currentBoard.Points[i][j]);
-
-				System.out.print(" ");
-				}
-			System.out.println();
-		}		
-	}
-	
-	public void placeDisc(String color,int x, int y){
-		currentBoard.Points[x][y].discCounter ++;			
-		currentBoard.Points[x][y].color = color;
-		if (color.equals("Red")){
-			redDiscs --;
+		//return errors;
+		String[] arr = new String[4];
+		for(int i = 0;i<4; i++){
+			arr[i] = Integer.toString(i);
 		}
-		else{
-			blueDiscs --;
-		}
-	}
-	
-
-	
-	public String getPlayerColour(){
-		if(p1Play){ 	//if it is player 1's turn
-			if(p1red){
-					//if they are red
-				return "Red";
-				}
-			else{
-				return "Blue";
-			}
-		}
-		else{		//if it is player 2's turn
-			if(p1red){		//then player 2 is blue
-				return "Blue";	//means player 2 is playing and player one is red so p2 is blue
-			}
-			else{
-				return "Red";
-			}
 		
+		return arr;
+	}
+	
+	public ArrayList<String> showValidMoves(int x, int y){
+		ArrayList<String> validMoves = new ArrayList<String>();
+		ArrayList<String> allConnections = new ArrayList<String>();
+		allConnections.addAll(currentBoard.Points[x][y].Hconnections);
+		allConnections.addAll(currentBoard.Points[x][y].Vconnections);		
+		for (String currentPoint :allConnections){
+			String[] xy = currentPoint.split(",");
+			int currentX = Integer.parseInt(xy[0]);
+			int currentY = Integer.parseInt(xy[1]);
+			if (currentBoard.Points[currentX][currentY].discCounter == 0)
+				validMoves.add(currentPoint);
 		}
-	}	
+		return validMoves;
+	}
 	
+	public void resetA(int x, int y){ //Remove a disc from point A
+		currentBoard.Points[x][y].discCounter = 0;
+		currentBoard.Points[x][y].color = "black";	
+	}
 	
-	public void switchPlayer(){
-		//for when they are in gameplay mode
-		if(p1Play){
-			p1Play = false;
+	public void checkMills(int x, int y){
+		while (checkH(x,y) || checkV(x,y)){
+			System.out.println("A MILL IS FORMED. REMOVE AN OPPENET'S DISC."); //TODO: CALL VIEW TO DISPLAY INFO. User click on a disc
+			// CHECK THAT DISC IS MOVEABLE OR NOT (MUST BE OPPOSITE COLOR + NOT IN A MILL)
+			//IF IT CAN BE REMOVED: RESET THE POINT AND DISC NUMBER --;
+			//CHECKWIN() ?
+			
 		}
-		else {p1Play = true;}
+		
 	}
 	
-	public void changePlayerColourBlue(){ //for when they wanna place a different colour disc
-			p1red= false;		//default will be red
-			p1blue = true;
-			
+	private ArrayList<String> currentHconnections(int x, int y){
+		return currentBoard.Points[x][y].Hconnections;
 	}
 	
-	public void changePlayerColourRed(){ //for when they wanna place a different colour disc
-			p1red= true;
-			p1blue=false;
-			
+	private ArrayList<String> currentVconnections(int x, int y){
+		return currentBoard.Points[x][y].Vconnections;
 	}
-
-
+	
+	private boolean checkH(int x, int y){
+		String color = currentBoard.Points[x][y].color;
+		ArrayList<String> allHConnctions = new ArrayList<String>();
+		allHConnctions.add(""+x+","+y);
+		for (String currentCoor: currentBoard.Points[x][y].Hconnections){
+			if (!allHConnctions.contains(currentCoor))
+				allHConnctions.add(currentCoor);
+			String[] a = currentCoor.split(",");
+			int currentX = Integer.parseInt(a[0]);
+			int currentY = Integer.parseInt(a[1]);
+			for (String coor: currentHconnections(currentX,currentY)){
+				if (!allHConnctions.contains(coor))
+					allHConnctions.add(coor);
+			}
+			
+		}
+		System.out.println();
+		System.out.print("Horizontal connections are :" );
+		for (String currentCoor: allHConnctions){
+			System.out.print("("+currentCoor + ")");
+		}
+		System.out.println();
+		return checkMill(color,allHConnctions);
+	}
+	
+	private boolean checkMill(String color,ArrayList<String> allConnctions){
+		int mill = 0;
+		for (String currentCoor : allConnctions){
+			String[] a = currentCoor.split(",");
+			int currentX = Integer.parseInt(a[0]);
+			int currentY = Integer.parseInt(a[1]);
+			if (currentBoard.Points[currentX][currentY].color == color)
+				mill ++;
+		}
+		if (mill == 3){
+			System.out.print("A MILL IS FORMED");
+			mills.addAll(allConnctions);
+			printMill();
+			return true ;
+		}
+		else return false;
+		
+	}
+	
+	private void printMill(){
+		System.out.println();
+		System.out.print("Points in Mills");
+		for (String points: mills){
+			System.out.print(points + " ");
+		}
+		System.out.println();
+	}
+	
+	private boolean checkV(int x, int y){
+		String color = currentBoard.Points[x][y].color;
+		ArrayList<String> allVConnctions = new ArrayList<String>();
+		allVConnctions.add(""+x+","+y);
+		for (String currentCoor: currentBoard.Points[x][y].Vconnections){
+			if (!allVConnctions.contains(currentCoor))
+				allVConnctions.add(currentCoor);
+			String[] a = currentCoor.split(",");
+			int currentX = Integer.parseInt(a[0]);
+			int currentY = Integer.parseInt(a[1]);
+			for (String coor: currentVconnections(currentX,currentY)){
+				if (!allVConnctions.contains(coor))
+					allVConnctions.add(coor);
+			}
+			
+		}
+		System.out.println();
+		System.out.print("Verical connections are :" );
+		for (String currentCoor: allVConnctions){
+			System.out.print("("+currentCoor + ")");
+		}
+		System.out.println();
+		return checkMill(color,allVConnctions);
+	}
+		
 	
 	
 	

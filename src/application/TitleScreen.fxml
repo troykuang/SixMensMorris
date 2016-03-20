@@ -20,11 +20,11 @@
       </Label>
       <HBox alignment="CENTER" layoutY="100.0" prefHeight="100.0" prefWidth="500.0" spacing="100.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#getPlayerColour" prefHeight="50.0" prefWidth="100.0" text="Red" />
-            <Button mnemonicParsing="false" onAction="#getPlayerColour" prefHeight="50.0" prefWidth="100.0" text="Blue" />
+            <Button mnemonicParsing="false" onAction="#getPlayerColour" text="Red" />
+            <Button mnemonicParsing="false" onAction="#getPlayerColour" text="Blue" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="500.0" spacing="5.0">
+      <HBox alignment="CENTER" layoutY="200.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="69.0" prefWidth="500.0" spacing="5.0">
          <children>
             <Label text="You are playing as the colour" textFill="WHITE">
                <font>
