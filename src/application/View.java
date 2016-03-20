@@ -38,6 +38,7 @@ public class View extends Application {
 	private Circle circle [][];
 	private Circle buttons [][];
 	private Scene scene;
+	private Pane gameboard = new Pane();
 
 
 
@@ -318,6 +319,35 @@ public class View extends Application {
 		}
 		 return gameboard;
 
+	}
+	
+	public Integer drawDashed(int i,int j){
+		double x = circle[i][j].getCenterX();
+		double y = circle[i][j].getCenterY();
+		Circle current = new Circle(x,y,20.0);
+		current.setFill(null);;
+		current.setStroke(Color.WHITE);
+		current.getStrokeDashArray().addAll(5d, 5d);
+		int now = gameboard.getChildren().size();
+		gameboard.getChildren().add(current);
+		return now;
+		
+	
+		/*	circle[i][j].setRadius(20.0);
+		circle[i][j].setFill(null);
+		circle[i][j].setStroke(Color.WHITE);
+		circle[i][j].getStrokeDashArray().addAll(5d, 5d);
+		*/
+	
+
+		
+	//	circle[i][j].setFill(player);
+	//	circle[i][j].setEffect(lighting);
+		
+	}
+	
+	public void removeDashed(){
+		gameboard.getChildren().remove(gameboard.getChildren().size()-1);
 	}
 	
 	
