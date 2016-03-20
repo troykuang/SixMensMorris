@@ -71,6 +71,7 @@ public class Model {		//this will hold the logic of the game
 		}
 		checkH(x,y);
 		checkV(x,y);
+		currentBoard.showBoards();
 	}
 	
 	public String getPlayerColour(){

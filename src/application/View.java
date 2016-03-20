@@ -40,6 +40,7 @@ public class View extends Application {
 	private Scene scene;
 	private Label redDiscs;
 	private Label blueDiscs;
+	private Pane gameboard = new Pane();
 
 
 
@@ -98,7 +99,22 @@ public class View extends Application {
 		}
 
 	}
+	public Integer drawDashed(int i,int j){
+		double x = circle[i][j].getCenterX();
+		double y = circle[i][j].getCenterY();
+		Circle current = new Circle(x,y,20.0);
+		current.setFill(null);;
+		current.setStroke(Color.WHITE);
+		current.getStrokeDashArray().addAll(5d, 5d);
+		int now = gameboard.getChildren().size();
+		gameboard.getChildren().add(current);
+		return now;
+		
+	}
 	
+	public void removeDashed(){
+		gameboard.getChildren().remove(gameboard.getChildren().size()-1);
+	}
 	
 	
 	

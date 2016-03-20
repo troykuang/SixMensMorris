@@ -4,6 +4,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.*;
+
+import java.util.ArrayList;
+
 import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.scene.effect.*;
@@ -15,7 +18,7 @@ public class Controller {
 	private int gameTile;
 	static Model laModel = new Model();
 	static View leView = new View();
-	
+	public static int dashedCircles = 0;
 	
 /*	@FXML
 	private static ObservableValue<? extends String> redDiscsLeft;
@@ -143,7 +146,7 @@ public class Controller {
 			//laModel.switchPlayer();
 			//need to also check validity 
 		}
-		//laModel.showBoards();
+		laModel.currentBoard.showBoards();
 		
 	}
 	
@@ -166,6 +169,28 @@ public class Controller {
 
 	public void exitGame(ActionEvent event){
 		System.exit(0);
+	}
+	
+	public static void drawValidNextMoves(int x,int y){
+		ArrayList<String> nextMoves = laModel.showValidMoves(x, y);
+		for (String current : nextMoves){
+			String[] a = current.split(",");
+			int currentX = Integer.parseInt(a[1]);
+			int currentY = Integer.parseInt(a[0]);
+			leView.drawDashed(currentX, currentY);
+			dashedCircles ++;
+			
+		}
+		
+	}
+	
+	public void moveA2B (int x1, int y1, int x2, int y2){ //Move disc from point A to point B and reset point A
+		ArrayList<String> validMoves = laModel.showValidMoves(x1,y1);
+		String coorB = ""+x2+","+y2;
+		while (validMoves.contains(coorB)){
+			laModel.resetA(x1,y1);
+			laModel.placeDisc(laModel.getPlayerColour(),y2, x2);
+		}
 	}
 	
 
