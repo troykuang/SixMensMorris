@@ -38,6 +38,8 @@ public class View extends Application {
 	private Circle circle [][];
 	private Circle buttons [][];
 	private Scene scene;
+	private Label redDiscs;
+	private Label blueDiscs;
 
 
 
@@ -74,8 +76,15 @@ public class View extends Application {
 			Pane gameboard = drawBoard();
 			total.setTopAnchor(gameboard, 75.0);
 			total.setLeftAnchor(gameboard, 20.0);
+			
+			redDiscs = new Label("6");
+			blueDiscs = new Label("6");
+			redDiscs.setTranslateX(785);
+			redDiscs.setTranslateY(392);
+			blueDiscs.setTranslateX(705);
+			blueDiscs.setTranslateY(392);
 
-			total.getChildren().addAll(root2, gameboard);
+			total.getChildren().addAll(root2, gameboard, redDiscs, blueDiscs);
 			Scene scene = new Scene(total, 900, 600);
 
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -94,6 +103,7 @@ public class View extends Application {
 	
 	
 	public void newGame(int n) {
+
 		cells = n; // #((mensMorris/3)*2)+1 IN THIS CASE 5
 		try {
 			AnchorPane total = new AnchorPane(); // going to be parent to the
@@ -124,7 +134,7 @@ public class View extends Application {
 	
 	
 	public void draw(String color, int i, int j){
-		System.out.println("Here");
+		System.out.println("drawing colour " + color);
 		//this is going to draw on the circle that was placed on the board
 		Paint player = Color.web(color);
 		//System.out.println(player.toString());
@@ -135,17 +145,47 @@ public class View extends Application {
 		
 
 
-		if (buttons[i][j].getFill() != player){
+		if (buttons[i][j].getFill().equals(player)){ //if you click on red and you are red or vice versa with blue
+			buttons[i][j].setFill(Color.TRANSPARENT);
+
+			if(color.equals("Red")){
+				redDiscs.setText(Integer.toString((Integer.parseInt(redDiscs.getText()) + 1)));
+				
+			}
+			else{
+				blueDiscs.setText(Integer.toString((Integer.parseInt(blueDiscs.getText()) + 1)));
+			}
+			
+			Controller.removeGamePiece(i,j);
+			
+		}
+		else{	//youre clicking on the other colour or transparent
+			if(buttons[i][j].getFill().equals(Color.TRANSPARENT)){ 			//if it was transparent
+				if(color.equals("Red")){	//only decrease red counter
+					redDiscs.setText(Integer.toString((Integer.parseInt(redDiscs.getText()) - 1)));
+				}
+				else{		//decrease the blue counter
+					blueDiscs.setText(Integer.toString((Integer.parseInt(blueDiscs.getText()) - 1)));					
+				}
+				
+			}
+			else{
+				if(color.equals("Red")){
+					redDiscs.setText(Integer.toString((Integer.parseInt(redDiscs.getText()) - 1)));
+					blueDiscs.setText(Integer.toString((Integer.parseInt(blueDiscs.getText()) + 1)));
+					
+				}
+				else{
+					blueDiscs.setText(Integer.toString((Integer.parseInt(blueDiscs.getText()) - 1)));
+					redDiscs.setText(Integer.toString((Integer.parseInt(redDiscs.getText()) + 1)));
+					
+				}
+				
+			}
 			buttons[i][j].setFill(player);
 			buttons[i][j].setEffect(lighting);
 			
 		}
-		else{
-			buttons[i][j].setFill(Color.TRANSPARENT);
-			Controller.removeGamePiece(i,j);
-		}
-
-
 	}
 
 	
@@ -330,7 +370,8 @@ public class View extends Application {
 		p.setAlignment(Pos.CENTER);
 		p.setPadding(new Insets(20));
 		Text heading = new Text("Sorry friend, you've placed some things incorrectly!");
-		heading.setStyle("-fx-text-fill: red" + "-fx-font-size: 16px");
+		//heading.setStyle("-fx-text-fill: red");
+		//heading.setStyle("-fx-font-size: 16px");
 		p.getChildren().add(heading);
 		for(String i: x ){
 		Text n = new Text(i);
@@ -363,6 +404,8 @@ public class View extends Application {
 				//also we want to clear the board in model
 			}
 		}
+		redDiscs.setText("6");
+		blueDiscs.setText("6");
 		
 
 	}

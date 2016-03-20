@@ -17,7 +17,7 @@
                <children>
                   <Button id="redButton" layoutX="165.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourRed" prefHeight="25.0" prefWidth="25.0">
                      <graphic>
-                        <Label fx:id="redDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" text="6" textAlignment="CENTER">
+                        <Label fx:id="redDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" textAlignment="CENTER">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -26,7 +26,7 @@
                   </Button>
                   <Button id="blueButton" layoutX="86.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourBlue" prefHeight="25.0" prefWidth="25.0">
                      <graphic>
-                        <Label fx:id="blueDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="17.0" text="6" textAlignment="CENTER">
+                        <Label fx:id="blueDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="17.0" textAlignment="CENTER">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

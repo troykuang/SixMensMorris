@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.*;
+import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.scene.effect.*;
 import javafx.scene.control.Button;
@@ -14,21 +15,25 @@ public class Controller {
 	private int gameTile;
 	static Model laModel = new Model();
 	static View leView = new View();
-	private int redDiscsLeft = N;
-	private int blueDiscsLeft = N;
-
 	
+	
+/*	@FXML
+	private static ObservableValue<? extends String> redDiscsLeft;
+	@FXML
+	private static ObservableValue<? extends String> blueDiscsLeft;
+
+	*/
 	
 
 	@FXML 
 	private String colourChoice;
 	@FXML 
 	private Label titleScreenLabel = new Label("Red");
-	@FXML
+/*	@FXML
 	private Label redDiscs = new Label();
 	@FXML
 	private Label blueDiscs = new Label();
-
+*/
 
 		
 	/**
@@ -68,11 +73,12 @@ public class Controller {
 	 * @param event Mouse clicked on New Game button.
 	 */
 	public boolean startNewGame(ActionEvent event){
+		System.out.println("new game");
 		//if there is a state in model, call that
 		gameplay = true;
 		int N = 6;		//so that we can pass the # of mens morris into the VIew
-		redDiscs.setText(Integer.toString(redDiscsLeft));		//this will show the players how many discs they have left to place
-		blueDiscs.setText(Integer.toString(blueDiscsLeft));
+		//redDiscs.setText(Integer.toString(redDiscsLeft));		//this will show the players how many discs they have left to place
+		//blueDiscs.setText(Integer.toString(blueDiscsLeft));
 		gameTile = ((N/3)*2)+1;	//array size needed to draw the gameboard for example 6 mens morris requires an array of 5x5
 		leView.newGame(gameTile); //array size # of mens morris passed into the view
 		laModel.createBoard(N);
@@ -92,12 +98,14 @@ public class Controller {
 	
 	
 	public void load(ActionEvent event){
+		System.out.println("load");
 		gameplay = false;
 		changeDiscColourRed();
 		gameTile = ((6/3)*2)+1;
 		laModel.createBoard(N);
 		laModel.currentBoard.showBoards();
 		leView.loadGame(gameTile);
+
 	}
 	
 	public static void removeGamePiece(int x, int y){
@@ -111,6 +119,8 @@ public class Controller {
 		changeDiscColourRed();
 		laModel.createBoard(N);
 		leView.resetLoad();
+		//redDiscsLeft = N;
+		//blueDiscsLeft = N;
 	}
 /*	
 	public void resetSceneGame(){
@@ -118,10 +128,15 @@ public class Controller {
 		laModel.reset();
 		leView.resetGame();
 	}*/
+	
+	public void decrementCounter(String color){
+
+	}
 
 	public static void inputClick(int x, int y){
 		System.out.println("mouse clicked at circle: "+y+" "+x);		//	JUST A TEST, BUT THE X AND Y WILL LET YOU CHECK THE MODEL'S ARRAY COORDINATES
 		leView.draw(laModel.getPlayerColour(),x,y);
+
 		laModel.placeDisc(laModel.getPlayerColour(),x, y);
 		if(gameplay){
 			//if we are playing a game instead of on load screen
