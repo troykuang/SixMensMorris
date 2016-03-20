@@ -382,6 +382,21 @@ public class View extends Application {
 	}
 
 	
+	public void resetLoad(){
+		for(int i=0; i< buttons.length; i++){
+			for (int j=0;j<buttons.length;j++){
+				if(buttons[i][j] != null){
+					//System.out.println("button at "+i+"  "+j);
+					buttons[i][j].setFill(Color.TRANSPARENT);
+				}
+				
+				//also we want to clear the board in model
+			}
+		}
+		
+
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

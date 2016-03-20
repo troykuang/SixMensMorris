@@ -97,7 +97,7 @@ public class Controller {
 	}
 	
 	
-	public void loadGame(ActionEvent event){
+	public void load(ActionEvent event){
 		gameplay = false;
 		changeDiscColourRed();
 		gameTile = ((6/3)*2)+1;
@@ -112,13 +112,13 @@ public class Controller {
 	}
 	
 	//for when we implement the reset buttons
-/*
-	public void resetSceneLoad(){
+
+	public void resetLoad(){
 		changeDiscColourRed();
-		laModel.reset();
+		laModel.createBoard(N);
 		leView.resetLoad();
 	}
-	
+/*	
 	public void resetSceneGame(){
 		changeDiscColourRed();
 		laModel.reset();
@@ -126,7 +126,7 @@ public class Controller {
 	}*/
 
 	public static void inputClick(int x, int y){
-		System.out.println("mouse clicked at circle: "+y+" "+x);			/*JUST A TEST, BUT THE X AND Y WILL LET YOU CHECK THE MODEL'S ARRAY COORDINATES*/
+		System.out.println("mouse clicked at circle: "+y+" "+x);		//	JUST A TEST, BUT THE X AND Y WILL LET YOU CHECK THE MODEL'S ARRAY COORDINATES
 		leView.draw(laModel.getPlayerColour(),x,y);
 		laModel.placeDisc(laModel.getPlayerColour(),x, y);
 		if(gameplay){
@@ -138,6 +138,7 @@ public class Controller {
 		
 	}
 	
+
 	public static void drawValidNextMoves(int x,int y){
 		ArrayList<String> nextMoves = laModel.showValidMoves(x, y);
 		for (String current : nextMoves){
@@ -164,6 +165,7 @@ public class Controller {
 	public void printTest(){
 		System.out.println("Print Test");
 	}
+
 	
 	public void valid(){
 		//call the model class, to see if it is valid

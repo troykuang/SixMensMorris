@@ -62,7 +62,7 @@
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="34.0" layoutY="510.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="105.0" text="Reset">
+                  <Button layoutX="34.0" layoutY="510.0" mnemonicParsing="false" onAction="#resetLoad" prefHeight="35.0" prefWidth="105.0" text="Reset">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
