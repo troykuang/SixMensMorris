@@ -15,24 +15,8 @@
          <children>
             <Pane id="topTitle" prefHeight="600.0" prefWidth="300.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button id="redButton" layoutX="165.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourRed" prefHeight="25.0" prefWidth="25.0">
-                     <graphic>
-                        <Label fx:id="redDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="40.0" textAlignment="CENTER">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
-                     </graphic>
-                  </Button>
-                  <Button id="blueButton" layoutX="86.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourBlue" prefHeight="25.0" prefWidth="25.0">
-                     <graphic>
-                        <Label fx:id="blueDiscs" alignment="CENTER" prefHeight="40.0" prefWidth="17.0" textAlignment="CENTER">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Label>
-                     </graphic>
-                  </Button>
+                  <Button id="redButton" layoutX="165.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourRed" prefHeight="25.0" prefWidth="25.0" />
+                  <Button id="blueButton" layoutX="86.0" layoutY="378.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#changeDiscColourBlue" prefHeight="25.0" prefWidth="25.0" />
                   <Label alignment="CENTER" layoutX="61.0" prefHeight="50.0" prefWidth="178.0" text="You are placing" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI" size="23.0" />
@@ -57,17 +41,18 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label alignment="CENTER" layoutX="64.0" layoutY="435.0" prefHeight="50.0" prefWidth="173.0" text="Click to switch between disc colours." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Label alignment="CENTER" layoutX="64.0" layoutY="424.0" prefHeight="50.0" prefWidth="173.0" text="Click to switch between disc colours." textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <Button layoutX="34.0" layoutY="510.0" mnemonicParsing="false" onAction="#resetLoad" prefHeight="35.0" prefWidth="105.0" text="Reset">
+                  <Button layoutX="34.0" layoutY="479.0" mnemonicParsing="false" onAction="#resetLoad" prefHeight="35.0" prefWidth="105.0" text="Reset">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="163.0" layoutY="510.0" mnemonicParsing="false" onAction="#valid" prefHeight="35.0" prefWidth="105.0" text="Play" />
+                  <Button layoutX="163.0" layoutY="479.0" mnemonicParsing="false" onAction="#valid" prefHeight="35.0" prefWidth="105.0" text="Play" />
+                  <Button layoutX="80.0" layoutY="543.0" mnemonicParsing="false" onAction="#play" prefHeight="49.0" prefWidth="142.0" text="From File" />
                </children>
             </Pane>
          </children>

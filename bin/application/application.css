@@ -25,6 +25,30 @@
 	
 }
 
+#blue{
+	-fx-background-color:deepskyblue;
+	-fx-max-width: 50px;
+	-fx-max-height: 50px;
+	-fx-min-width: 50px;
+	-fx-min-height: 50px;
+	-fx-background-radius: 8em;
+	-fx-effect:innershadow(gaussian,rgba(31,44,122,0.6),13,0.2,2,2);
+	-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );	
+	
+}
+
+#red {
+	-fx-max-width: 50px;
+	-fx-max-height: 50px;
+	-fx-min-width: 50px;
+	-fx-min-height: 50px;
+	-fx-background-color: crimson;
+	-fx-background-radius: 8em;
+	-fx-effect: innershadow(gaussian,rgba(120,34,14,0.6),13,0.2,2,2);
+	-fx-effect: dropshadow(one-pass-box, black , 5, 0.5 , -2.0 , -4.0 );
+	
+}
+
 
 #blueButton:hover{
 	-fx-background-color: dodgerblue;

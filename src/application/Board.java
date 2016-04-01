@@ -9,7 +9,7 @@ public class Board {
 	private int matrixSize;
 
 	
-	public Board(int N){
+	public Board(int N){ //Create a Board for N Men's Morris
 		this.N = N;
 		this.length = (2*N)/3 +1;
 		this.layer = N/3;
@@ -21,14 +21,19 @@ public class Board {
 				Points[i][j] = new Point(i,j);
 			}
 		}
-		placeValidPoints();
-		makeConnections();
+		placeValidPoints(); // Find all valid points on the board.
+		makeConnections(); // Make connections for each points.
 	}
 
 	private void placeValidPoints(){
+		//The board is made up of a 4x4 grid, for Six Men’s Morris, and can be represented as a 5x5 array, 
+		//where all valid points are placed along two central axis and two diagonals except for the central middle point.
+		// For each valid point, its validity is set to be true and the for rest of the points, 
+		// including the central point, their validities remain unchanged, by default that is false
+
 		for (int i =0;i<this.length;i++){
 			for (int j =0;j<this.length;j++){
-				if (i==j){
+				if (i==j){ // first diagonal
 					Points[i][j].validity = true;
 					if (i<N/3){
 						Points[i][j].locationFlag = "TopLeft";
@@ -37,7 +42,7 @@ public class Board {
 						Points[i][j].locationFlag = "BtmRight";
 					}
 				}
-				if (i+j == this.matrixSize){
+				if (i+j == this.matrixSize){ // second diagonal
 					Points[i][j].validity = true;
 					if (i>N/3){
 						Points[i][j].locationFlag = "BtmLeft";
@@ -46,6 +51,7 @@ public class Board {
 						Points[i][j].locationFlag = "TopRight";
 				}
 				}
+				// middle axes
 				if ((i == this.matrixSize/2) || (j == this.matrixSize/2)){
 					Points[i][j].validity = true;
 					if ((i==this.matrixSize/2) && (j < matrixSize/2)){
@@ -69,7 +75,15 @@ public class Board {
 		
 	}
 
-	private void makeConnections() {
+	private void makeConnections() { //Determines the horizontal and vertical connections of the points.
+		//For each layer, “TopLeft” is connected to “MdlTop” and "MdlLeft", 
+		// "TopRight" is connected to “MdlTop” and "MdlRight", 
+		// “BtmLeft” is connected to  "MdlLeft" and "MdlBtm" 
+		// while "BtmRight" is connected to "MdlLeft" and "MdlBtm". 
+		// Correspondingly, all the midpoints are connected to corner points. 
+		// When a midpoint is not in the innermost or outermost layer, 
+		// it is always horizontally or vertically connected to another two midpoints. 
+		// For any other midpoints that are in the innermost and outermost layers, only another one midpoint is connected.
 		for (int i = 0; i < this.length; i++) {
 			for (int j = 0; j < this.length; j++) {
 				if (Points[i][j].validity) {
@@ -163,7 +177,7 @@ public class Board {
 		
 	}
 	
-	public void showBoards(){
+	public void showBoards(){  // Print the whole Board
 		for (int i =0;i<length;i++){
 			for (int j =0;j<length;j++){
 				System.out.print(Points[i][j]);
