@@ -89,8 +89,14 @@ public class Model {		//this will hold the logic of the game
 		else{
 			blueDiscs --;
 		}
+<<<<<<< HEAD
 //		checkH(x,y);
 //		checkV(x,y);
+=======
+		checkH(x,y);
+		checkV(x,y);
+		currentBoard.showBoards();
+>>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 	}
 	
 	public String getPlayerColour(){ // Get current payer color

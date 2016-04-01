@@ -5,20 +5,34 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.*;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.ArrayList;
 
+=======
+import java.util.ArrayList;
+
+import javafx.beans.value.ObservableValue;
+>>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 import javafx.event.*;
 import javafx.scene.effect.*;
 import javafx.scene.control.Button;
 
 public class Controller {
 	public static int N; // N Men's Morris
+<<<<<<< HEAD
 	public static int dashedCircles = 0;	//counter for the dashed circles indicating possible disc movements
 	public static int currentState;			//current state 
 	public static ArrayList<String> nextMoves;	//to show next moves, the dashed circles will highlight
 	public static int nowX;	
 	public static int nowY;
+=======
+	private static boolean gameplay; //state of whether the game is in play or not
+	private int gameTile;
+	static Model laModel = new Model();
+	static View leView = new View();
+	public static int dashedCircles = 0;
+>>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 	
 	static Model laModel = new Model();	//instantiate the model in order to store the placements 
 	static View leView = new View();		//view object in order to change the view
@@ -271,7 +285,11 @@ public class Controller {
 			dashedCircles ++;		//counting how many dashed circles on the board, this is designed for removing the dashed circles.
 			
 		}
+<<<<<<< HEAD
 		
+=======
+		laModel.currentBoard.showBoards();
+>>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 		
 	}
 	
@@ -336,6 +354,28 @@ public class Controller {
 			//System.out.println("GAME IN PROGRESS");
 			//  view to display "GAME IN PROGRESS"
 			leView.changeState(1);		//6 = red wins
+		}
+	}
+	
+	public static void drawValidNextMoves(int x,int y){
+		ArrayList<String> nextMoves = laModel.showValidMoves(x, y);
+		for (String current : nextMoves){
+			String[] a = current.split(",");
+			int currentX = Integer.parseInt(a[1]);
+			int currentY = Integer.parseInt(a[0]);
+			leView.drawDashed(currentX, currentY);
+			dashedCircles ++;
+			
+		}
+		
+	}
+	
+	public void moveA2B (int x1, int y1, int x2, int y2){ //Move disc from point A to point B and reset point A
+		ArrayList<String> validMoves = laModel.showValidMoves(x1,y1);
+		String coorB = ""+x2+","+y2;
+		while (validMoves.contains(coorB)){
+			laModel.resetA(x1,y1);
+			laModel.placeDisc(laModel.getPlayerColour(),y2, x2);
 		}
 	}
 	
