@@ -45,7 +45,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button alignment="CENTER" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="75.0" prefWidth="200.0" text="Start Game" />
+                  <Button alignment="CENTER" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" onAction="#getGameplay" prefHeight="75.0" prefWidth="200.0" text="Start Game" />
                   <Button alignment="CENTER" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" onAction="#load" prefHeight="75.0" prefWidth="200.0" text="Load Game" />
                </children>
             </AnchorPane>

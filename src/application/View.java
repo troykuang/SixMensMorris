@@ -1,7 +1,10 @@
 package application;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -42,12 +45,8 @@ public class View extends Application {
 	private Pane gameboard = new Pane();
 	private Label redDiscs;
 	private Label blueDiscs;
-<<<<<<< HEAD
 	private Label playing = new Label();
 	private Label status = new Label();
-=======
-	private Pane gameboard = new Pane();
->>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 
 
 
@@ -70,49 +69,6 @@ public class View extends Application {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-=======
-	public Integer drawDashed(int i,int j){
-		double x = circle[i][j].getCenterX();
-		double y = circle[i][j].getCenterY();
-		Circle current = new Circle(x,y,20.0);
-		current.setFill(null);;
-		current.setStroke(Color.WHITE);
-		current.getStrokeDashArray().addAll(5d, 5d);
-		int now = gameboard.getChildren().size();
-		gameboard.getChildren().add(current);
-		return now;
-		
-	}
-	
-	public void removeDashed(){
-		gameboard.getChildren().remove(gameboard.getChildren().size()-1);
-	}
-	
-	
-	
-	public void newGame(int n) {
-
-		cells = n; // #((mensMorris/3)*2)+1 IN THIS CASE 5
-		try {
-			AnchorPane total = new AnchorPane(); // going to be parent to the
-													// scene builder items and
-													// the ones we create
-													// dynamically
-			Parent root2 = FXMLLoader.load(getClass().getResource("GameScreen.fxml"));
-			Pane gameboard = drawBoard();
-			total.setTopAnchor(gameboard, 75.0);
-			total.setLeftAnchor(gameboard, 20.0);
-
-			total.getChildren().addAll(root2, gameboard);
-			scene = new Scene(total, 900, 600);
-
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			leStage.setScene(scene);
-			leStage.show();
-			leStage.setTitle("6 Men's Morris Game");
->>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 
 	private Pane drawBoard(){			//dynamically drawing the game board  and returning it on a Pane
 		
@@ -345,16 +301,19 @@ public class View extends Application {
 		System.out.println(i);			//check the state
 		switch (i){
 		case 1:
-			System.out.println("I'M IN CHANGESTATE 1");
+//			System.out.println("I'M IN CHANGESTATE 1");
 			status.setText("In PROGRESS");	//tell the player the game is in progress
 			break;
 		case 2:
-			System.out.println("I'M IN CHANGESTATE 2");
+//			System.out.println("I'M IN CHANGESTATE 2");
 			status.setText("Red Wins!");		//when red wins
 			break;
 		case 3:
-			System.out.println("I'M IN CHANGESTATE 3");
+//			System.out.println("I'M IN CHANGESTATE 3");
 			status.setText("Blue Wins!");		//when blue wins
+			break;
+		case 4:
+			status.setText("Game Drawn.");
 			break;
 		}
 		
@@ -427,6 +386,52 @@ public class View extends Application {
 		dialogStage.setScene(s);
 		dialogStage.show();
 	}
+	
+	public void getGameplay(){	//to decide if they want to play with the computer or with another human
+		
+		Stage dialogStage = new Stage();
+		VBox p = new VBox();
+		p.setAlignment(Pos.CENTER);
+		p.setPadding(new Insets(20));
+		
+		Text heading = new Text("1 Player or 2 Players?");
+		p.getChildren().add(heading);
+		
+		
+		//the buttons 
+		Button a = new Button("1 Player");
+		a.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle (MouseEvent mouseEvent) {
+				Controller.startNewGame(true);
+				Stage st = (Stage) (a.getScene().getWindow());
+				st.close();				
+			}
+		});
+
+		
+		Button b = new Button("2 Players");
+		b.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle (MouseEvent mouseEvent) {
+				Controller.startNewGame(false);
+				Stage st = (Stage) (b.getScene().getWindow());
+				st.close();
+			}
+		});
+
+		
+		
+
+		p.getChildren().addAll(a,b);
+		
+		//p.getChildren().add(b); 		
+		Scene s = new Scene(p);
+		dialogStage.setScene(s);
+		dialogStage.show();		//show the dialog box
+		
+		
+	}
+	
+
 	
 	public void invalid(ArrayList<String> x){	//to show the user what the mistakes were when they placed the discs manually
 			//System.out.println("VIEW CLASS");
@@ -526,8 +531,12 @@ public class View extends Application {
 
 	public void undrawDisc(int i,int j){			//getting rid of disc
 		buttons[i][j].setFill(Color.TRANSPARENT);	//just reFill it transparent
+	
 	}
 	
+	
+	
+
 	public void exit(){						//to close the whole stage if they want to exit
 		Stage st = (Stage) (leStage.getScene().getWindow());
 		resetLoad();						//we also need to reset it, in case they open another window, we dont want the game pieces to be there still

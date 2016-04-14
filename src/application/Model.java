@@ -16,12 +16,13 @@ public class Model {		//this will hold the logic of the game
 	private boolean p1red = true;		//default will be red
 	private boolean p1blue = false;
 	private boolean p1Play = false;
-	public Board currentBoard;
+	public static Board currentBoard;
 	public int redDiscs = 6; 	// The number of red discs that are remained to be placed on the board.
 	public int blueDiscs = 6;	// The number of blue discs that are remained to be placed on the board.
-	public int totalRed = 6; // The total number of red discs 
-	public int totalBlue = 6; // The total number of blue discs 
+	public int totalRed = 6; // The total number of red discs remained on the board
+	public int totalBlue = 6; // The total number of blue discs remained on the board
 	private ArrayList<String> mills = new ArrayList<String>(); // An ArrayList that holds all the coordinates in the mills 
+	public String AIcolor;
 	
 	
 	public void assignPlayer(String colourChoice){
@@ -89,14 +90,8 @@ public class Model {		//this will hold the logic of the game
 		else{
 			blueDiscs --;
 		}
-<<<<<<< HEAD
 //		checkH(x,y);
 //		checkV(x,y);
-=======
-		checkH(x,y);
-		checkV(x,y);
-		currentBoard.showBoards();
->>>>>>> 60d50a695ff98197c646f898ee8bc067757476b2
 	}
 	
 	public String getPlayerColour(){ // Get current payer color
@@ -357,10 +352,109 @@ public class Model {		//this will hold the logic of the game
 		}
 		
 	}
-		
 	
-	
-	
-	
-
+	public ArrayList<String> AInextMoves(){
+		ArrayList<String> nextMoves = new ArrayList<String>();
+		ArrayList<Point[]> allMills = currentBoard.allMills();
+		ArrayList<ArrayList<String>> LineInfo = new ArrayList<ArrayList<String>>();
+		for (int i = 0; i < 8; i++) {
+			int red = 0;
+			int blue = 0;
+			ArrayList<String> currentLineInfo = new ArrayList<String>();
+			ArrayList<String> availableSpot = new ArrayList<String>();
+			for (Point current : allMills.get(i)){
+				if (current.color.equals("Red")){
+					red ++;
+					//System.out.println("red piece at" + current.coor);
+					}
+				if (current.color.equals("Blue")){
+					blue ++;
+					//System.out.println("blue piece at" + current.coor);
+					}
+				if (current.color.equals("black")){
+					availableSpot.add(current.coor);
+					//System.out.println("The AI can place at " + current.coor);
+					}
+			}
+			currentLineInfo.add(""+red);
+			currentLineInfo.add(""+blue);
+			currentLineInfo.addAll(availableSpot);
+			LineInfo.add(currentLineInfo);
+		}
+		//A
+		//System.out.println(LineInfo.toString());
+		for (int i = 0;i < 8;i++){
+			ArrayList<String> current = LineInfo.get(i);
+			if ((current.get(0).equals("2") ||current.get(1).equals("2")) && (current.size()>2)){
+				if (!nextMoves.contains(current.get(2)))
+					nextMoves.add(current.get(2));
+					//System.out.println("AI will create / break mill");
+			}
+		}
+		if (nextMoves.isEmpty()){
+			//B
+			for (int i = 0;i < 8;i++){
+				ArrayList<String> current = LineInfo.get(i);
+				if (AIcolor.equals("Red")){
+					if ((current.get(0).equals("1")) && ((current.get(1).equals("0")))){
+						if (!nextMoves.contains(current.get(2))){
+							nextMoves.add(current.get(2));
+							//System.out.println("AI is Red, row/column has a red piece and location 2 is empty");
+						}
+						if (!nextMoves.contains(current.get(3))){
+							nextMoves.add(current.get(3));
+							//System.out.println("AI is Red, row/column has a red piece and location 3 is empty");
+						}
+					}
+				}
+				else if (AIcolor.equals("Blue")){
+					if ((current.get(0).equals("0")) && ((current.get(1).equals("1")))){
+						if (!nextMoves.contains(current.get(2))){
+							nextMoves.add(current.get(2));
+							//System.out.println("AI is Blue, row/column has a blue piece and location 2 is empty");
+						}
+						if (!nextMoves.contains(current.get(3))){
+							nextMoves.add(current.get(3));
+							//System.out.println("AI is Blue, row/column has a blue piece and location 3 is empty");
+						}
+					}
+				}
+			}
+			if (nextMoves.isEmpty()){
+				//C
+				for (int i = 0;i < 8;i++){
+					ArrayList<String> current = LineInfo.get(i);
+					if ((current.get(0).equals("0") && current.get(1).equals("0"))){
+						if (!nextMoves.contains(current.get(2))){
+							nextMoves.add(current.get(2));
+							//System.out.println("There are no pieces in the row / column, and location 1 isn't yet stored");
+						}
+						if (!nextMoves.contains(current.get(3))){
+							nextMoves.add(current.get(3));
+							//System.out.println("There are no pieces in the row / column, and location 2 isn't yet stored");
+						}
+						if (!nextMoves.contains(current.get(4))){
+							nextMoves.add(current.get(4));
+							//System.out.println("There are no pieces in the row / column, and location 3 isn't yet stored");
+						}
+					}
+				}
+				if (nextMoves.isEmpty()){
+					for (int i = 0;i < 8;i++){
+						ArrayList<String> current = LineInfo.get(i);
+						if ((current.get(0).equals("1") && current.get(1).equals("1"))){
+							if (!nextMoves.contains(current.get(2))){
+								nextMoves.add(current.get(2));
+								//System.out.println("There are one of each colour in this row and the location isn't yet stored");
+							}
+						}
+					}
+					return nextMoves;				
+				}
+				else return nextMoves;
+			}
+			else return nextMoves;
+		}
+		else return nextMoves;
+	}
 }

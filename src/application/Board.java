@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 public class Board {
 	
 	public static Point[][] Points;
@@ -188,20 +190,88 @@ public class Board {
 		
 		
 	}
+	// THIS IS SPECIFICALLY DESIGNED FOR SIX MEN'S MORRIS ONLY
+	public ArrayList<Point[]> allMills(){
 	
-	/* THIS PART IS FOR RESET BUTTON AND PROB SHOULD BE MOVED TO CONTROLLER LATER
+		ArrayList<Point[]> allMills = new ArrayList<Point[]>();
+		//allMills[0]
+		Point[] h0 = new Point[3];
+		h0[0] = Points[0][0];
+		h0[1] = Points[0][2];
+		h0[2] = Points[0][4];
+		allMills.add(h0);
+		//allMills[1]
+		Point[] h1 = new Point[3];
+		h1[0] = Points[1][1];
+		h1[1] = Points[1][2];
+		h1[2] = Points[1][3];
+		allMills.add(h1);
+		//allMills[2]
+		Point[] h2 = new Point[3];
+		h2[0] = Points[3][1];
+		h2[1] = Points[3][2];
+		h2[2] = Points[3][3];
+		allMills.add(h2);
+		//allMills[3]
+		Point[] h3 = new Point[3];
+		h3[0] = Points[4][0];
+		h3[1] = Points[4][2];
+		h3[2] = Points[4][4];
+		allMills.add(h3);
+		//allMills[4]
+		Point[] v4 = new Point[3];
+		v4[0] = Points[0][0];
+		v4[1] = Points[2][0];
+		v4[2] = Points[4][0];
+		allMills.add(v4);
+		//allMills[5]
+		Point[] v5 = new Point[3];
+		v5[0] = Points[1][1];
+		v5[1] = Points[2][1];
+		v5[2] = Points[3][1];
+		allMills.add(v5);
+		//allMills[6]
+		Point[] v6 = new Point[3];
+		v6[0] = Points[1][3];
+		v6[1] = Points[2][3];
+		v6[2] = Points[3][3];
+		allMills.add(v6);
+		//allMills[7]
+		Point[] v7 = new Point[3];
+		v7[0] = Points[0][4];
+		v7[1] = Points[2][4];
+		v7[2] = Points[4][4];
+		allMills.add(v7);
+		return allMills;
+	}
+	
+	public ArrayList<String> allXcolorDiscs(String color){
+		ArrayList<String> allAIpoints = new ArrayList<String>();
+		for (int i = 0; i < this.length; i++) {
+			for (int j = 0; j < this.length; j++) {
+				if ((Points[i][j].validity) && Points[i][j].color.equals(color)) {
+					allAIpoints.add((Points[i][j].coor));
+				}
+			}
+		}
+				
+		return allAIpoints;
+	}
+	
+
 	 public static void clearBoard(){
 		// keep valid points and connections but clear discCount and color
+		 
 		for (int i =0;i<length;i++){
 			for (int j=0;j<length;j++){
-				while (Points[i][j].validity){ 
+				if (Points[i][j].validity){ 
 					Points[i][j].discCounter = 0;
 					Points[i][j].color = "";
 			}
 		}
 	}		
 }
-	*/
+	
 	
 	
 	// Testing

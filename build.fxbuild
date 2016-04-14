@@ -5,4 +5,5 @@
     <info/>
   </deploy>
   <signjar/>
+  <manifestEntries name="View" value="main"/>
 </anttasks:AntTask>
