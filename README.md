@@ -1,9 +1,14 @@
-# 3 Men's Morris #
+# Six Men's Morris #
 
+	![alt text](img/Welcome.png)
 	This project implements the game 3 Men's Morris in Java. The user interface is implemented using JavaFX and the Scenebuilder. 
 
 	It was decomposed into the MVC modules (Model, View, Controller).
 
+	![alt text](img/Players.png)
+	Support up to 2 players
+
+	![alt text](img/InGame.png)
 
 **********************************************************************************************
 
@@ -35,9 +40,6 @@ Created in Collaboration.
 
 Collaborators:
 
-Troy Kuang
-Rebecca Tran
+Troy Kuang, Rebecca Tran and Natasha DeCoste
 
 **********************************************************************************************
-
-Natasha DeCoste
